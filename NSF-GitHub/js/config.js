@@ -4,12 +4,12 @@
 // Fyll i dina egna värden från Firebase Console (se SETUP.md).
 // Lämna apiKey tom ("") för att köra helt offline utan synkronisering.
 const FIREBASE_CONFIG = {
-  apiKey:            "",
-  authDomain:        "",
-  projectId:         "",
-  storageBucket:     "",
-  messagingSenderId: "",
-  appId:             "",
+  apiKey:            "AIzaSyCvziJL2v-Yqo1vg-X-4CIKHlbn5lyYHKo",
+  authDomain:        "notesofast-1d571.firebaseapp.com",
+  projectId:         "notesofast-1d571",
+  storageBucket:     "notesofast-1d571.firebasestorage.app",
+  messagingSenderId: "906385007717",
+  appId:             "1:906385007717:web:8a0a9e6f2254cab519928c",
 };
 //
 
