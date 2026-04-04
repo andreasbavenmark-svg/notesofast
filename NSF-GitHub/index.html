@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoteSoFast</title>
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="NoteSoFast" />
+  </head>
+  <body>
+
+    <!-- ── Top bar ─────────────────────────────────────────────────────────── -->
+    <header class="top-bar">
+      <button class="brand-mark" id="brand-mark" type="button" aria-label="AndyNote hem">
+        <span class="brand-nsf">NSF</span>
+      </button>
+      <div class="brand-popup hidden" id="brand-popup" role="status" aria-live="polite"></div>
+      <div class="top-right-group">
+        <span class="save-status" id="save-status"></span>
+        <div class="quick-capture-unit">
+          <input
+            class="capture-input"
+            id="quick-capture-input"
+            type="text"
+            placeholder="Write before it disappears…"
+            autocomplete="off"
+          />
+          <button class="btn-capture" id="capture-btn" type="button">+ Capture</button>
+          <button class="btn-record"  id="record-btn"  type="button">Record</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── App shell ───────────────────────────────────────────────────────── -->
+    <div class="app-shell">
+
+      <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+      <aside class="sidebar">
+
+        <!-- Sök -->
+        <div class="sidebar-search">
+          <input id="search-input" type="search" placeholder="Search…" />
+        </div>
+
+        <!-- Nav: Inbox / Drafts / Areas (expanderbar) / Archive -->
+        <nav class="sidebar-nav">
+          <div class="tree-list" id="root-tree"></div>
+        </nav>
+
+        <!-- Import / Export -->
+        <div class="sidebar-section sidebar-io">
+          <p class="sidebar-section-label">Data</p>
+          <button class="sidebar-action-btn" id="export-btn" type="button">↓ Export notes</button>
+          <label class="sidebar-action-btn sidebar-action-label" for="import-file-input">
+            ↑ Import notes
+          </label>
+          <input
+            id="import-file-input"
+            class="hidden-file-input"
+            type="file"
+            accept=".json,.enex"
+            multiple
+          />
+        </div>
+
+        <!-- Projects (separat sektion längst ner) -->
+        <div class="sidebar-section sidebar-projects">
+          <p class="sidebar-section-label">Projects</p>
+          <div class="space-list" id="project-list"></div>
+          <button class="sidebar-add-btn" id="add-project-btn" type="button">+ New project</button>
+        </div>
+
+        <!-- Sync-status / sign-in -->
+        <div class="sidebar-sync" id="sidebar-sync"></div>
+
+        <div class="sidebar-footer">
+          <div class="stats" id="stats"></div>
+        </div>
+
+      </aside>
+
+      <!-- ── Main viewer ─────────────────────────────────────────────────── -->
+      <main class="viewer">
+
+        <!-- Hero / empty state -->
+        <section class="hero" id="empty-state">
+          <h2>Your notes, fast.</h2>
+          <p>Select a section, or start capturing.</p>
+        </section>
+
+        <!-- Workspace -->
+        <section class="workspace hidden" id="workspace-view">
+
+          <header class="workspace-header">
+            <div class="workspace-header-topline">
+              <p class="eyebrow" id="workspace-meta"></p>
+            </div>
+            <h2 id="workspace-title"></h2>
+          </header>
+
+          <div class="workspace-columns">
+
+            <!-- Note list -->
+            <section class="workspace-list-section">
+              <div class="workspace-subheader">
+                <h3>Notes</h3>
+                <p id="workspace-count"></p>
+              </div>
+              <div class="note-grid" id="note-grid"></div>
+            </section>
+
+            <!-- Kanban board (visas istället för note-list när ett project är valt) -->
+            <section class="kanban-board hidden" id="kanban-board"></section>
+
+            <!-- Note detail / editor -->
+            <section class="note-view hidden" id="note-view">
+
+              <div class="note-editor-actions note-editor-actions-top hidden" id="note-editor-actions-top">
+                <button class="btn-done" id="done-note-edit" type="button">Done</button>
+              </div>
+
+              <!-- Kanban statusväljare — visas bara i kanban-modal -->
+              <div class="kanban-status-bar hidden" id="kanban-status-bar">
+                <button class="kanban-status-btn" data-status="inbox" type="button">Inbox</button>
+                <button class="kanban-status-btn" data-status="doing" type="button">Doing</button>
+                <button class="kanban-status-btn" data-status="done"  type="button">Done</button>
+              </div>
+
+              <header class="note-header">
+                <div>
+                  <p class="eyebrow" id="note-meta"></p>
+                  <h3 id="note-title"></h3>
+                </div>
+                <div class="note-header-actions">
+                  <button class="note-modal-close hidden" id="note-modal-close" type="button" aria-label="Stäng">✕</button>
+                </div>
+              </header>
+
+              <div class="note-editor hidden" id="note-editor">
+                <div class="recording-panel hidden" id="recording-panel">
+                  <div class="recording-live">
+                    <span class="recording-dot" aria-hidden="true"></span>
+                    <span class="recording-elapsed" id="recording-elapsed">00:00</span>
+                    <div class="recording-bars" aria-hidden="true">
+                      <span></span><span></span><span></span>
+                      <span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  <p class="recording-status" id="recording-status"></p>
+                </div>
+                <div class="editor-shell" id="editor-shell">
+                  <div class="editor-toolbar">
+                    <button type="button" data-command="bold"><strong>B</strong></button>
+                    <button type="button" data-command="italic"><em>I</em></button>
+                    <button type="button" data-command="insertUnorderedList">• List</button>
+                    <button type="button" data-command="insertOrderedList">1. List</button>
+                    <button type="button" data-command="removeFormat">Clear</button>
+                  </div>
+                  <div id="edit-note-body" class="rich-editor" contenteditable="true"></div>
+                </div>
+              </div>
+
+              <div class="note-content" id="note-content"></div>
+
+              <section class="attachments hidden" id="attachments-section">
+                <h4>Attachments</h4>
+                <div class="attachment-list" id="attachment-list"></div>
+              </section>
+
+            </section><!-- /note-view -->
+
+          </div><!-- /workspace-columns -->
+        </section><!-- /workspace-view -->
+
+      </main>
+    </div><!-- /app-shell -->
+
+    <!-- Kanban modal backdrop -->
+    <div class="kanban-backdrop hidden" id="kanban-backdrop"></div>
+
+    <!-- Folder / project picker (floating, visas vid drag & drop) -->
+    <div class="folder-picker hidden" id="folder-picker">
+      <div class="folder-picker-header" id="folder-picker-header">Move to…</div>
+      <div class="folder-picker-list"   id="folder-picker-list"></div>
+    </div>
+
+    <!-- Firebase SDK (compat) — aktiveras bara om apiKey är ifyllt i config.js -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts (laddas i ordning) -->
+    <script src="./js/config.js"></script>
+    <script src="./js/services/StorageService.js"></script>
+    <script src="./js/services/SyncService.js"></script>
+    <script src="./js/services/RecordingService.js"></script>
+    <script src="./js/services/TranscriptionService.js"></script>
+    <script src="./js/app.js"></script>
+
+  </body>
+</html>
