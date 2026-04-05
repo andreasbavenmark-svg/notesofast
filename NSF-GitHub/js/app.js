@@ -1443,7 +1443,7 @@ function promptCreate(type, rootId = "area") {
   dialog.innerHTML = `
     <h3 style="margin:0 0 16px;font-size:1rem;font-weight:700;">${title}</h3>
     <input id="_create_input" type="text" placeholder="${placeholder}"
-      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--c-border);border-radius:var(--r-md);font-size:0.9rem;outline:none;background:var(--c-bg);color:var(--c-text);">
+      style="width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--c-border);border-radius:var(--r-md);font-size:0.9rem;outline:none;background:var(--c-bg);color:var(--c-text);-webkit-text-fill-color:var(--c-text);">
     <div style="display:flex;gap:8px;margin-top:14px;">
       <button id="_create_confirm" style="flex:1;padding:9px;border:none;border-radius:var(--r-md);background:var(--c-text);color:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;">Create</button>
       <button id="_create_cancel"  style="flex:1;padding:9px;border:1px solid var(--c-border);border-radius:var(--r-md);background:transparent;font-size:0.9rem;cursor:pointer;color:var(--c-text-2);">Cancel</button>
