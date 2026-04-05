@@ -194,7 +194,13 @@ function setupMobileUI() {
   bottomBar.className = "mobile-bottom-bar";
   bottomBar.id = "mobile-bottom-bar";
   bottomBar.innerHTML = `
-    <button class="mobile-record-btn" id="mobile-record-btn">Record</button>
+    <button class="mobile-record-btn" id="mobile-record-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="12" r="10"/>
+      </svg>
+      Record
+    </button>
   `;
   document.body.appendChild(bottomBar);
   bottomBar.querySelector("#mobile-record-btn").addEventListener("click", () => toggleRecording());
@@ -1014,6 +1020,14 @@ function renderNoteList() {
 
   noteGrid.innerHTML = "";
 
+  // Mobile section-label ovanför listan
+  if (isMobile() && notes.length > 0) {
+    const label = document.createElement("div");
+    label.className = "note-list-section-label";
+    label.textContent = (areaName ?? root?.label ?? "Notes").toUpperCase();
+    noteGrid.appendChild(label);
+  }
+
   // Aggregated view: info banner
   if (aggregated) {
     const hint = document.createElement("div");
@@ -1041,10 +1055,12 @@ function renderNoteList() {
       : "";
 
     btn.innerHTML = `
-      <span class="note-card-title">${esc(note.title) || "<em>Untitled</em>"}</span>
-      ${folderBadge}
+      <div class="note-card-header">
+        <span class="note-card-title">${esc(note.title) || "<em>Untitled</em>"}</span>
+        <span class="note-card-meta">${formatRelative(note.updatedAt)}</span>
+      </div>
       <span class="note-card-body">${esc(stripHtml(note.content)).slice(0, 120)}</span>
-      <span class="note-card-meta">${formatRelative(note.updatedAt)}</span>
+      ${folderBadge}
     `;
     btn.addEventListener("click",     () => selectNote(note.id));
     btn.addEventListener("dragstart", (e) => {
