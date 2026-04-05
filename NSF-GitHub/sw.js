@@ -1,5 +1,5 @@
-// sw.js — Service Worker för NoteSoFast v7
-const CACHE_NAME = "notsofast-v7";
+// sw.js — Service Worker för NoteSoFast v8
+const CACHE_NAME = "notsofast-v8";
 
 const APP_SHELL = [
   "./",
