@@ -2511,10 +2511,17 @@ body::before {
   .sidebar-add-btn { font-size: 15px !important; }
 }
 
-/* ── Dialog input text color fix ─────────────────────────────────────────── */
+/* ── Dialog input + button text color fix ────────────────────────────────── */
 #_create_input {
   color: var(--c-text) !important;
   -webkit-text-fill-color: var(--c-text) !important;
   background: var(--c-bg) !important;
   caret-color: var(--c-accent) !important;
+}
+
+/* Alla dynamiskt skapade dialog-knappar */
+#_imp_opts button,
+#_imp_cancel {
+  color: var(--c-text) !important;
+  -webkit-text-fill-color: var(--c-text) !important;
 }
