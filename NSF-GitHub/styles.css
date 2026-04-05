@@ -2437,3 +2437,11 @@ body::before {
   .note-editor-actions-top { display: none !important; }
   .kanban-status-bar { padding: 10px 16px; }
 }
+
+/* ── Dialog input text color fix ─────────────────────────────────────────── */
+#_create_input {
+  color: var(--c-text) !important;
+  -webkit-text-fill-color: var(--c-text) !important;
+  background: var(--c-bg) !important;
+  caret-color: var(--c-accent) !important;
+}
