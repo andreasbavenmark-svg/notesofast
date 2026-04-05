@@ -2072,13 +2072,21 @@ body::before {
 @media (max-width: 768px) {
   :root {
     --top-bar-h: 52px;
-    --mobile-bottom-h: 72px;
+    --mobile-bottom-h: 84px;
+
+    /* Större typografi — native iOS-känsla */
+    --f-xs:   12px;
+    --f-sm:   14px;
+    --f-base: 15px;
+    --f-ui:   15px;
+    --f-body: 17px;
+    --f-head: 26px;
   }
 
   /* ── Top bar: göm quick-capture, behåll logo ── */
-  .top-bar { padding: 0 16px; gap: 8px; }
+  .top-bar { padding: 0 20px; gap: 8px; }
   .top-right-group { display: none; }       /* quick capture + knappar */
-  .brand-nsf { font-size: 16px; }
+  .brand-nsf { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
   .brand-popup {
     top: calc(100% + 6px);
     max-width: calc(100vw - 24px);
@@ -2224,33 +2232,33 @@ body::before {
     gap: 10px;
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
     background: var(--c-bg);
     border-top: 1px solid var(--c-border);
     z-index: 150;
   }
   .mobile-folder-btn {
-    width: 48px; height: 48px;
+    width: 52px; height: 52px;
     flex-shrink: 0;
     display: flex; align-items: center; justify-content: center;
     background: var(--c-surface);
     border: 1px solid var(--c-border);
     border-radius: 50%;
-    font-size: 18px;
-    color: var(--c-text-2);
+    font-size: 22px;
+    color: var(--c-text);
     cursor: pointer;
   }
   .mobile-record-btn {
     flex: 1;
     display: flex; align-items: center; justify-content: center;
     gap: 8px;
-    padding: 14px;
+    padding: 16px;
     background: var(--c-accent);
     color: #fff;
     border: none;
     border-radius: var(--r-pill);
     font-family: var(--font);
-    font-size: var(--f-base);
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 4px 16px rgba(192,57,43,0.28);
@@ -2436,6 +2444,71 @@ body::before {
   /* Göm done-knapp i mobil (autosave sköter det) */
   .note-editor-actions-top { display: none !important; }
   .kanban-status-bar { padding: 10px 16px; }
+}
+
+/* ── Mobile: note-kort, section-label, sidebar ───────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Note-kort: mer luft */
+  .note-card {
+    padding: 14px 16px;
+    gap: 6px;
+    border-radius: 14px;
+  }
+
+  /* Header-rad: titel vänster, tid höger */
+  .note-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .note-card-title  { font-size: 16px; font-weight: 700; flex: 1; }
+  .note-card-body   { font-size: 14px; color: var(--c-text-2); line-height: 1.45; }
+  .note-card-meta   {
+    font-size: 12px;
+    color: var(--c-text-3);
+    flex-shrink: 0;
+    padding-top: 2px;
+    white-space: nowrap;
+  }
+
+  /* Badge: pill-stil */
+  .note-card-folder {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--c-text-2);
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-border);
+    border-radius: 999px;
+    padding: 2px 10px;
+    margin-top: 2px;
+  }
+
+  /* Gap mellan korten */
+  #note-grid { gap: 10px; padding: 12px 14px; }
+
+  /* Section-label */
+  .note-list-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--c-accent);
+    padding: 2px 4px 6px;
+    margin-bottom: 2px;
+    border-bottom: 1.5px solid var(--c-accent);
+    width: fit-content;
+  }
+
+  /* Sidebar: lite större och ljusare text */
+  .tree-button { font-size: 16px !important; height: 40px !important; }
+  .tree-chevron { font-size: 11px !important; color: var(--c-text-2) !important; }
+  .tree-child   { font-size: 15px !important; height: 36px !important; color: var(--c-text-2) !important; }
+  .sidebar-section-label { font-size: 11px; letter-spacing: 0.07em; }
+  .sidebar-add-btn { font-size: 15px !important; }
 }
 
 /* ── Dialog input text color fix ─────────────────────────────────────────── */
