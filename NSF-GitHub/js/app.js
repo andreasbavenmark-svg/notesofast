@@ -1901,7 +1901,7 @@ function pickImportDestination() {
     navRoots.forEach(root => {
       const btn = document.createElement("button");
       btn.textContent = root.label;
-      btn.style.cssText = "padding:10px 16px;border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-bg);cursor:pointer;text-align:left;font-size:0.9rem;font-weight:500;transition:background 0.1s;";
+      btn.style.cssText = "padding:10px 16px;border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-bg);cursor:pointer;text-align:left;font-size:0.9rem;font-weight:500;transition:background 0.1s;color:var(--c-text);-webkit-text-fill-color:var(--c-text);";
       btn.onmouseenter = () => btn.style.background = "var(--c-surface)";
       btn.onmouseleave = () => btn.style.background = "var(--c-bg)";
       btn.onclick = () => { document.body.removeChild(overlay); resolve(root.id); };
